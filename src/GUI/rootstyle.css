@@ -1,0 +1,17 @@
+.root{
+    -fx-font-size: 10pt;
+    -fx-font-family: "Helvetica";
+}
+.text-field {
+    -fx-font-size: 15pt;
+    -fx-base: STEELBLUE;
+    -fx-font-family: "Segoe UI Semibold";
+}
+.progress-bar { -fx-box-border: goldenrod; }
+
+#progress {
+        -fx-accent: #0094ff;
+}
+#importbutton1 {
+    -fx-font-size: 9pt;
+}

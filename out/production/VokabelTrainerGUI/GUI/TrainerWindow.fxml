@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+         prefWidth="550.0" stylesheets="@rootstyle.css" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+    <Tab text="Start">
+        <AnchorPane minHeight="0.0" minWidth="0.0">
+            <Button layoutX="354.0" layoutY="252.0" mnemonicParsing="false" onAction="#startTraining"
+                    prefHeight="92.0" prefWidth="170.0" text="Starte Abfrage...">
+                <font>
+                    <Font size="17.0"/>
+                </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="94.0" prefWidth="517.0"
+                   text="Bevor Sie mit dem Abfragen beginnen müssen erst Vokabeln hinzugefügt werden! Geben Sie diese im Tab &quot;Eingabe&quot; ein oder importieren Sie diese in den Einstellungen!"
+                   wrapText="true"/>
+        </AnchorPane>
+    </Tab>
+    <Tab fx:id="questioningTab" disable="true" text="Abfrage">
+        <AnchorPane minHeight="0.0" minWidth="0.0">
+            <TextField fx:id="questionTextField" alignment="TOP_LEFT" editable="false" layoutX="50.0" layoutY="36.0"
+                       prefHeight="150.0" prefWidth="200.0"/>
+            <TextField fx:id="answerTextField" alignment="TOP_LEFT" layoutX="300.0" layoutY="36.0" prefHeight="150.0"
+                       prefWidth="200.0"/>
+            <Button layoutX="406.0" layoutY="289.0" mnemonicParsing="false" onAction="#fertigClick" prefHeight="59.0"
+                    prefWidth="94.0" text="Fertig!">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Button>
+            <TextFlow fx:id="textflow" layoutX="33.0" layoutY="287.0" prefHeight="63.0" prefWidth="338.0"/>
+            <ProgressBar id="progress" fx:id="rate" layoutX="50.0" layoutY="199.0" prefHeight="18.0"
+                         prefWidth="450.0" progress="1.0">
+                <effect>
+                    <Bloom threshold="0.05"/>
+                </effect>
+            </ProgressBar>
+            <Label fx:id="rateLabel" layoutX="50.0" layoutY="217.0" text="Fehlerquote dieser Vokabel:"/>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Eingabe">
+        <AnchorPane>
+            <TextField fx:id="questionEnterTextField" alignment="TOP_LEFT" layoutX="50.0" layoutY="36.0"
+                       prefHeight="150.0" prefWidth="200.0" promptText="Frage"/>
+            <TextField fx:id="answerEnterTextField" alignment="TOP_LEFT" layoutX="300.0" layoutY="36.0"
+                       prefHeight="150.0" prefWidth="200.0" promptText="Anwort"/>
+            <Button layoutX="406.0" layoutY="199.0" mnemonicParsing="false" onAction="#addVokabel" prefHeight="59.0"
+                    prefWidth="94.0" text="Hinzufügen!"/>
+            <Button id="importbutton1" layoutX="440.0" layoutY="279.0" mnemonicParsing="false" onAction="#importVok"
+                    prefHeight="38.0" prefWidth="60.0" text="Import..."/>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Einstellungen">
+        <AnchorPane>
+            <Button layoutX="14.0" layoutY="247.0" mnemonicParsing="false" onAction="#exportVok" text="Export..."/>
+            <Button layoutX="14.0" layoutY="282.0" mnemonicParsing="false" onAction="#importVok" text="Import..."/>
+            <Button layoutX="14.0" layoutY="316.0" mnemonicParsing="false" onAction="#clear" text="Löschen"/>
+            <CheckBox fx:id="askInvertedCheckBox" layoutX="14.0" layoutY="72.0" mnemonicParsing="false"
+                      text="Frage und Antwort vertauschen"/>
+            <Slider fx:id="maxTriesSlider" layoutX="14.0" layoutY="99.0" majorTickUnit="1.0" max="10.0" min="1.0"
+                    minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0"/>
+            <Slider fx:id="rightToReset" layoutX="14.0" layoutY="137.0" majorTickUnit="1.0" max="10.0" min="1.0"
+                    minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0"/>
+            <Label layoutX="175.0" layoutY="99.0" text="Maximale Versuche (am Stück) pro Vokabel"/>
+            <Label layoutX="175.0" layoutY="137.0" prefHeight="52.0" prefWidth="339.0"
+                   text="Nach wie vielen richtigen Antworten die Fehlerquote zurückgesetzt werden soll"
+                   wrapText="true"/>
+            <Button layoutX="400.0" layoutY="302.0" mnemonicParsing="false" onAction="#saveSettings"
+                    prefHeight="54.0" prefWidth="135.0" text="Speichern"/>
+            <CheckBox fx:id="caseSensitiveCheckBox" layoutX="14.0" layoutY="46.0" mnemonicParsing="false"
+                      prefHeight="20.0" prefWidth="217.0" text="Groß-/Kleinschreibung beachten"/>
+
+        </AnchorPane>
+    </Tab>
+</TabPane>

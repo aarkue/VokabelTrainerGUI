@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_vokabeltrainergui" default="compile.module.vokabeltrainergui">
+  <dirname property="module.vokabeltrainergui.basedir" file="${ant.file.module_vokabeltrainergui}"/>
+  
+  <property name="module.jdk.home.vokabeltrainergui" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.vokabeltrainergui" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.vokabeltrainergui" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.vokabeltrainergui" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="vokabeltrainergui.output.dir" value="${module.vokabeltrainergui.basedir}/out/production/VokabelTrainerGUI"/>
+  <property name="vokabeltrainergui.testoutput.dir" value="${module.vokabeltrainergui.basedir}/out/test/VokabelTrainerGUI"/>
+  
+  <path id="vokabeltrainergui.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vokabeltrainergui.module.production.classpath">
+    <path refid="${module.jdk.classpath.vokabeltrainergui}"/>
+    <pathelement location="${idea.home}/redist/annotations-java8.jar"/>
+  </path>
+  
+  <path id="vokabeltrainergui.runtime.production.module.classpath">
+    <pathelement location="${vokabeltrainergui.output.dir}"/>
+    <pathelement location="${idea.home}/redist/annotations-java8.jar"/>
+  </path>
+  
+  <path id="vokabeltrainergui.module.classpath">
+    <path refid="${module.jdk.classpath.vokabeltrainergui}"/>
+    <pathelement location="${vokabeltrainergui.output.dir}"/>
+    <pathelement location="${idea.home}/redist/annotations-java8.jar"/>
+  </path>
+  
+  <path id="vokabeltrainergui.runtime.module.classpath">
+    <pathelement location="${vokabeltrainergui.testoutput.dir}"/>
+    <pathelement location="${vokabeltrainergui.output.dir}"/>
+    <pathelement location="${idea.home}/redist/annotations-java8.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vokabeltrainergui">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vokabeltrainergui">
+    <patternset refid="excluded.from.module.vokabeltrainergui"/>
+  </patternset>
+  
+  <path id="vokabeltrainergui.module.sourcepath">
+    <dirset dir="${module.vokabeltrainergui.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.vokabeltrainergui" depends="compile.module.vokabeltrainergui.production,compile.module.vokabeltrainergui.tests" description="Compile module VokabelTrainerGUI"/>
+  
+  <target name="compile.module.vokabeltrainergui.production" depends="register.custom.compilers" description="Compile module VokabelTrainerGUI; production classes">
+    <mkdir dir="${vokabeltrainergui.output.dir}"/>
+    <javac2 destdir="${vokabeltrainergui.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vokabeltrainergui}/javac">
+      <compilerarg line="${compiler.args.vokabeltrainergui}"/>
+      <bootclasspath refid="vokabeltrainergui.module.bootclasspath"/>
+      <classpath refid="vokabeltrainergui.module.production.classpath"/>
+      <src refid="vokabeltrainergui.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vokabeltrainergui"/>
+    </javac2>
+    
+    <copy todir="${vokabeltrainergui.output.dir}">
+      <fileset dir="${module.vokabeltrainergui.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.vokabeltrainergui.tests" depends="register.custom.compilers,compile.module.vokabeltrainergui.production" description="compile module VokabelTrainerGUI; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.vokabeltrainergui" description="cleanup module">
+    <delete dir="${vokabeltrainergui.output.dir}"/>
+    <delete dir="${vokabeltrainergui.testoutput.dir}"/>
+  </target>
+</project>
